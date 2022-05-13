@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class PlayerSoundController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private AudioSource _audio;
+
     void Start()
     {
-        
+        _audio = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayMoveSound()
     {
-        
+        if (!_audio.isPlaying)
+        {
+            _audio.volume = Random.Range(0.9f, 1f);
+            _audio.pitch = Random.Range(0.8f, 1.1f);
+            _audio.Play();
+        }
     }
 }

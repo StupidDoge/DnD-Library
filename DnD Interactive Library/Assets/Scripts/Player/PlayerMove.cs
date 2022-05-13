@@ -32,7 +32,8 @@ public class PlayerMove : MonoBehaviour
         _moveDir.y = _verticalSpeed;
 
         _player.Move(_moveDir * Time.deltaTime);
-        /*if (_player.velocity.magnitude > 2f)
-            _playerSoundController.PlayMoveSound();*/
+
+        if (_player.velocity.magnitude > 2f)
+            _playerSoundController.PlayMoveSound();
     }
 }
