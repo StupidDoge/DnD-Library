@@ -12,6 +12,7 @@ public class InputHandler : MonoBehaviour
     public bool RightMouseButton { get; set; }
     public bool Use { get; set; }
     public bool Flashlight { get; set; }
+    public bool Exit { get; set; }
 
     void Update()
     {
@@ -23,5 +24,6 @@ public class InputHandler : MonoBehaviour
         MouseY = Input.GetAxis("Mouse Y");
         Use = Input.GetButtonDown("Use");
         Flashlight = Input.GetButtonDown("Flashlight");
+        Exit = Input.GetButtonDown("Exit");
     }
 }

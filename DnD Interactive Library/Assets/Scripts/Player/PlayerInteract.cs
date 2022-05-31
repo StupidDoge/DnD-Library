@@ -7,7 +7,6 @@ public class PlayerInteract : MonoBehaviour
 	[SerializeField] private Transform _flashlight;
 
 	private bool _inTrigger;
-	private bool _allowInteraction;
 	private bool _flashlightIsActive = false;
 	private InputHandler _inputHandler;
 
@@ -18,10 +17,7 @@ public class PlayerInteract : MonoBehaviour
 
 	private void Update()
 	{
-		if (_inputHandler.Use && _inTrigger)
-			_allowInteraction = true;
-
-		if (_inputHandler.Flashlight)
+		if (_inputHandler.Flashlight && !InteractionCollider.CanvasIsActive && !PauseController.GameIsPaused)
 			ActivateFlashlight();
 	}
 
@@ -37,10 +33,13 @@ public class PlayerInteract : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.TryGetComponent(out InteractableObject obj) && _allowInteraction)
+		if (other.TryGetComponent(out InteractionCollider collider))
 		{
-			obj.ShowOrClearText();
-			_allowInteraction = false;
+			if (_inputHandler.Use && !InteractionCollider.CanvasIsActive)
+				collider.ShowCanvas();
+
+			if (_inputHandler.Exit && InteractionCollider.CanvasIsActive)
+				collider.HideCanvas();
 		}
 	}
 

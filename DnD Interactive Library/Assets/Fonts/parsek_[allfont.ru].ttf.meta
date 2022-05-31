@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cbf7d597f9b7d36498ecf332dd2a850e
+guid: 3892b79bdaee6d1458173f3470597d00
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Over the Rainbow
+  - Parsek
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

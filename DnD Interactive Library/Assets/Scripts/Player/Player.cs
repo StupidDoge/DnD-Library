@@ -17,7 +17,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _move.Move();
-        _playerRotation.Rotate();
+        if (!PauseController.GameIsPaused)
+        {
+            _move.Move();
+            _playerRotation.Rotate();
+        }
     }
 }
