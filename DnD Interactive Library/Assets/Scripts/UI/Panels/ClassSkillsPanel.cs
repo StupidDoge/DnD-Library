@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SubracePanel : Panel
+public class ClassSkillsPanel : Panel
 {
     [SerializeField] private TextMeshProUGUI _header;
     [SerializeField] private TextMeshProUGUI _text;
 
-    private string _subraceName;
+    private string _additionalSkillID;
     private string _dataString;
 
-    public override void SetData(string name)
+    public override void SetData(string idWithName)
     {
-        _header.text = name;
-        _subraceName = name;
+        Debug.Log(idWithName);
+        string[] data = idWithName.Split('&');
+        _header.text = data[1];
+        _additionalSkillID = data[0];
         StartCoroutine(GetText());
     }
 
@@ -25,10 +27,10 @@ public class SubracePanel : Panel
 
     private IEnumerator GetText()
     {
-        Debug.Log(_subraceName);
+        Debug.Log(_additionalSkillID);
         WWWForm form = new WWWForm();
-        form.AddField("subraceName", _subraceName);
-        WWW www = new WWW("http://localhost/get_info_subrace.php", form);
+        form.AddField("skillID", _additionalSkillID);
+        WWW www = new WWW("http://localhost/get_class_skills.php", form);
         yield return www;
         _dataString = www.text;
         _dataString = _dataString.Replace("&;", "<br>");

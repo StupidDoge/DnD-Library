@@ -31,6 +31,7 @@ public class LineagePanel : Panel
         WWW www = new WWW("http://localhost/get_info_lineage.php", form);
         yield return www;
         _dataString = www.text;
+        _dataString = _dataString.Replace("&;", "<br>");
         _text.text = _dataString;
     }
 }

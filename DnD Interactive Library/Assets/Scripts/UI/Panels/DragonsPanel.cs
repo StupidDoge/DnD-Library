@@ -1,20 +1,19 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SubracePanel : Panel
+public class DragonsPanel : Panel
 {
     [SerializeField] private TextMeshProUGUI _header;
     [SerializeField] private TextMeshProUGUI _text;
 
-    private string _subraceName;
+    private string _dragonType;
     private string _dataString;
 
     public override void SetData(string name)
     {
         _header.text = name;
-        _subraceName = name;
+        _dragonType = name;
         StartCoroutine(GetText());
     }
 
@@ -25,10 +24,10 @@ public class SubracePanel : Panel
 
     private IEnumerator GetText()
     {
-        Debug.Log(_subraceName);
+        Debug.Log(_dragonType);
         WWWForm form = new WWWForm();
-        form.AddField("subraceName", _subraceName);
-        WWW www = new WWW("http://localhost/get_info_subrace.php", form);
+        form.AddField("dragonType", _dragonType);
+        WWW www = new WWW("http://localhost/get_info_dragons.php", form);
         yield return www;
         _dataString = www.text;
         _dataString = _dataString.Replace("&;", "<br>");

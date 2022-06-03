@@ -6,7 +6,6 @@ public class PlayerInteract : MonoBehaviour
 {
 	[SerializeField] private Transform _flashlight;
 
-	private bool _inTrigger;
 	private bool _flashlightIsActive = false;
 	private InputHandler _inputHandler;
 
@@ -19,16 +18,6 @@ public class PlayerInteract : MonoBehaviour
 	{
 		if (_inputHandler.Flashlight && !InteractionCollider.CanvasIsActive && !PauseController.GameIsPaused)
 			ActivateFlashlight();
-	}
-
-	private void OnTriggerEnter(Collider other)
-	{
-		_inTrigger = true;
-	}
-
-	private void OnTriggerExit(Collider other)
-	{
-		_inTrigger = false;
 	}
 
 	private void OnTriggerStay(Collider other)

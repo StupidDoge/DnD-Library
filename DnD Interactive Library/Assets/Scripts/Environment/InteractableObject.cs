@@ -37,7 +37,7 @@ public class InteractableObject : MonoBehaviour
         _webTest.ClearText();
     }
 
-    private void OnTriggerStay(Collider other)
+    /*private void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent(out Player player))
         {
@@ -46,5 +46,5 @@ public class InteractableObject : MonoBehaviour
             else
                 player.enabled = true;
         }
-    }
+    }*/
 }

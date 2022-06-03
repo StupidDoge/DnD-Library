@@ -31,6 +31,8 @@ public class RacePanel : Panel
         WWW www = new WWW("http://localhost/get_info_race.php", form);
         yield return www;
         _dataString = www.text;
+        _dataString = _dataString.Replace("&;", "<br>");
+        Debug.Log(_dataString);
         _text.text = _dataString;
     }
 }

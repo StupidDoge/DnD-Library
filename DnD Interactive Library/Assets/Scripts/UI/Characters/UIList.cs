@@ -17,12 +17,17 @@ public class UIList : MonoBehaviour
     [SerializeField] private GameObject _racePanel;
     [SerializeField] private GameObject _subracePanel;
     [SerializeField] private GameObject _lineagePanel;
+    [SerializeField] private GameObject _dragonsPanel;
+    [SerializeField] private GameObject _classPanel;
+    [SerializeField] private GameObject _archetypePanel;
+    [SerializeField] private GameObject _classSkillsPanel;
+    [SerializeField] private GameObject _additionalSkillsPanel;
 
     private GameObject _activePanel;
 
     private string _tableName;
     private string _dataString;
-    private string[] _races;
+    private string[] _dataArray;
 
     private string _request = "http://localhost/get_races.php";
 
@@ -32,6 +37,7 @@ public class UIList : MonoBehaviour
     {
         StartCoroutine(Wait());
         Line.OnRawSelected += SwapPanels;
+        InteractionCollider.CanvasIsActive = true;
     }
 
     private void OnDisable()
@@ -78,7 +84,7 @@ public class UIList : MonoBehaviour
         else
             _dataString = www.downloadHandler.text;
 
-        _races = _dataString.Split(';');
+        _dataArray = _dataString.Split(';');
 
         switch (_tableName)
         {
@@ -91,16 +97,41 @@ public class UIList : MonoBehaviour
             case "lineage":
                 _activePanel = _lineagePanel;
                 break;
+            case "dragons_types":
+                _activePanel = _dragonsPanel;
+                break;
+            case "class":
+                _activePanel = _classPanel;
+                break;
+            case "archetype":
+                _activePanel = _archetypePanel;
+                break;
+            case "class_skills":
+                _activePanel = _classSkillsPanel;
+                break;
+            case "additional_skills":
+                _activePanel = _additionalSkillsPanel;
+                break;
         }
 
-        for (int i = 0; i < _races.Length; i++)
+        for (int i = 0; i < _dataArray.Length; i++)
         {
-            if (_races[i] != "")
+            if (_dataArray[i] != "")
             {
-                string characterInfo = _races[i];
-                GameObject line = Instantiate(_template);
-                line.transform.SetParent(_container.transform);
-                line.GetComponent<Line>().SetData(characterInfo, _activePanel);
+
+                if (_activePanel == _additionalSkillsPanel || _activePanel == _classSkillsPanel)
+                {
+                    string[] tempArray = _dataArray[i].Split('&');
+                    GameObject skillLine = Instantiate(_template);
+                    skillLine.transform.SetParent(_container.transform);
+                    skillLine.GetComponent<Line>().SetData(tempArray[0], tempArray[1], _activePanel);
+                } else
+                {
+                    string characterInfo = _dataArray[i];
+                    GameObject line = Instantiate(_template);
+                    line.transform.SetParent(_container.transform);
+                    line.GetComponent<Line>().SetData(characterInfo, _activePanel);
+                }
             }
         }
 
